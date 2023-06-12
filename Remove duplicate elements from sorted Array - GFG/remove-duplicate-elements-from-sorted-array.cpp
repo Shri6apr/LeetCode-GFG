@@ -18,6 +18,7 @@ public:
                 a[i+1]=a[j];
                 i++;
             }
+            
         }
         return i+1;
     }
