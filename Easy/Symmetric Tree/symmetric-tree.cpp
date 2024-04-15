@@ -100,29 +100,22 @@ struct Node {
 };
 */
 class Solution{
- 
-      bool inorder(Node* root1, Node* root2) {
-        // single condition for step 5,6 and 7
-
-         if(root1 == NULL || root2 == NULL)
-            return root1==root2;
-
-        // IF both are non NULL (step-8)  
-        return (root1->data == root2->data)
-            && inorder(root1->left, root2->right)
-            && inorder(root1->right, root2->left);
+    public:
+    // Helper function to check if two trees are mirrors of each other
+    bool isMirror(Node* root1, Node* root2) {
+        if (!root1 && !root2) return true; // Both are NULL, so they are mirrors
+        if (!root1 || !root2) return false; // One is NULL, but the other is not, so they can't be mirrors
+        return (root1->data == root2->data) && isMirror(root1->left, root2->right) && isMirror(root1->right, root2->left);
     }
 
-public:
-    bool isSymmetric(struct Node* root)
-    {
-        if(root == NULL)
-            return true;
-            
-       return inorder(root->left, root->right);
+    // Main function to check if the tree is symmetric
+    bool isSymmetric(Node* root) {
+        // If the tree is empty, it is symmetric
+        if (!root) return true;
+        // Check if the left subtree and right subtree are mirrors of each other
+        return isMirror(root->left, root->right);
     }
 };
-
 
 //{ Driver Code Starts.
 
