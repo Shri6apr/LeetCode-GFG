@@ -112,36 +112,31 @@ int main()
      int data;
      Node* left, *right;
 }; */
+void funct(Node* node , vector<int>& ans){
+        if(node == NULL) return;
+        
+        if(node -> left && !node->right)ans.push_back(node->left->data);
+        else if(!node ->left && node ->right) ans.push_back(node->right->data);
+        funct(node->left,ans);
+        funct(node->right,ans);
+
+}
 
 vector<int> noSibling(Node* node)
 {
     // code here
-    //parent hoga uske paas sirf left ya right node rahega
-    queue<Node*>q;
-    q.push(node);
-    vector<int>ans;
-    if(!node) ans.push_back(-1);
+    vector<int> ans;
+    funct(node,ans);
+    // Remove the root node's data from the result if it's present
     
-    while(!q.empty()){
-        Node *temp = q.front();
-        q.pop();
-        if(temp->left){
-          q.push(temp->left);//pehe maine isse ek hi if wale mein daal diya tha isse kya hua ki ek immideiate next step ka hi dekh rha tha
 
-        }
-        if(temp->left && !temp->right){
-            ans.push_back(temp->left->data);
-        }
-        if(temp->right){
-            q.push(temp->right);
-        }        
-        if(!temp->left && temp->right){
-            ans.push_back(temp->right->data);
-        }
-
-
+    
+    if(ans.empty()){
+        ans.push_back(-1);
     }
-    if(ans.empty()) ans.push_back(-1);
     sort(ans.begin(),ans.end());
     return ans;
+    
+    
+    
 }
