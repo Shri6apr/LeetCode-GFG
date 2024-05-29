@@ -37,18 +37,24 @@ class Solution
     {
         // code here
         // return head of reversed list
-        
-        //Base case
-        if(head == NULL || head -> next == NULL){
-            return head;
-        }
-        Node* newhead = reverseList(head -> next);
-        
-        head -> next -> next = head;
-        head -> next = NULL;
-        
-        return newhead;
-        
+        //curr->next_guy => next_guy->next=curr;//first
+        //prev =nullptr => curr->next = prev ; //2 
+        //updation prev = curr; & curr = next_guy 
+        //a->b->c->d->none
+        //d->c->b->a->none 
+        Node *curr = head;
+        Node *next_guy=nullptr;
+        Node *prev_guy =nullptr;
+        while(curr != NULL){
+            next_guy = curr->next;//curr
+            // prev_guy = nullptr; //will take the value of curr before next_guy is named as curr
+            // next_guy->next = curr;
+            curr->next = prev_guy;
+            prev_guy =curr;
+            curr = next_guy;
+            
+            
+        }return prev_guy;
     }
     
 };
