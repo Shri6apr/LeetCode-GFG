@@ -10,19 +10,33 @@ class Solution {
   public:
     vector<int> productExceptSelf(vector<int>& arr) {
         // code here
-        int n=arr.size();
-        vector<int>ans(n,1);
-        //left  product
-        int left=1;
-        for(int i=0;i<n;i++){
-            ans[i]=left;
-            left=left*arr[i];
+        long long zero = 0;
+        long long mul = 1;
+        for(int i  =0  ; i < arr.size();i++){
+            if(arr[i] == 0){
+                zero++;
+            }else{
+                mul *= arr[i];
+            }
+            
+            
         }
-        //right product
-        int right=1;
-        for(int i=n-1; i>=0;i--){
-            ans[i]*=right;
-            right=right*arr[i];
+        vector<int>ans(arr.size(),0);
+        for(int i = 0 ; i < arr.size();i++){
+            if(zero > 1) {
+                ans[i] = 0 ;
+            }
+            else if(zero == 1  ){
+                if(arr[i] ==0){
+                    
+                    ans[i] = mul ;
+                }
+                else{
+                    ans[i] =0;
+                }
+            }else{
+                ans[i] = mul / arr[i];
+            }
         }
         return ans;
     }
